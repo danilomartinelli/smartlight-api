@@ -8,8 +8,13 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @MessagePattern('esp8266/pub')
-  getPayload(@Payload() data: SmartLightPayload) {
-    this.appService.getPayload(data);
+  async setPayload(@Payload() data: SmartLightPayload) {
+    await this.appService.setPayload(data);
+  }
+
+  @Get('/data')
+  async getData() {
+    return await this.appService.getData();
   }
 
   @Get('/healthz')
