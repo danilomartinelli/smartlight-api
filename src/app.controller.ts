@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SmartLightPayload } from './types/smart-light-payload.type';
@@ -13,8 +13,8 @@ export class AppController {
   }
 
   @Get('/data')
-  async getData() {
-    return await this.appService.getData();
+  async getData(@Query('limit') limit: string) {
+    return await this.appService.getData(parseInt(limit || '10'));
   }
 
   @Get('/healthz')
