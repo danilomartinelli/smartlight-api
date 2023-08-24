@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+
+import * as redisStore from 'cache-manager-redis-store';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -19,6 +23,12 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         },
       },
     ]),
+    CacheModule.register({
+      isGlobal: true,
+      store: redisStore,
+      host: 'red-cjjqk0ocfp5c738s2oqg',
+      port: 6379,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
