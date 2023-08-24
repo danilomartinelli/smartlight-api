@@ -10,6 +10,10 @@ import { SmartLightPayloadResponse } from './types/smart-light-response.type';
 export class AppService {
   constructor(@Inject(CACHE_MANAGER) private cacheService: Cache) {}
 
+  async reset(): Promise<void> {
+    await this.cacheService.reset();
+  }
+
   async setPayload(data: SmartLightPayload): Promise<void> {
     const timestamp = new Date().getTime();
     await this.cacheService.set(

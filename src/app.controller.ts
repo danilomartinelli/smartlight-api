@@ -12,6 +12,11 @@ export class AppController {
     await this.appService.setPayload(data);
   }
 
+  @Get('/reset')
+  async reset() {
+    await this.appService.reset();
+  }
+
   @Get('/data')
   async getData(@Query('limit') limit: string) {
     return await this.appService.getData(parseInt(limit || '10'));
